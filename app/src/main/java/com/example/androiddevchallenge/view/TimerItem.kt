@@ -54,10 +54,15 @@ fun TimerItemAnimation(currentText: String, nextText: String, factor: Float) {
         if (factor < 0.5F) {
             val f = factor * 2F
             Column(
-                modifier = Modifier.align(Alignment.Center).graphicsLayer(
-                    rotationX = -0F * f,
-                    transformOrigin = TransformOrigin(pivotFractionX = 0.5F, pivotFractionY = 0.5F)
-                )
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .graphicsLayer(
+                        rotationX = -0F * f,
+                        transformOrigin = TransformOrigin(
+                            pivotFractionX = 0.5F,
+                            pivotFractionY = 0.5F
+                        )
+                    )
             ) {
 
                 TimerItemView(
@@ -71,10 +76,15 @@ fun TimerItemAnimation(currentText: String, nextText: String, factor: Float) {
         if (factor >= 0.5F) {
             val f = (1F - factor) * 2F
             Column(
-                modifier = Modifier.align(Alignment.Center).graphicsLayer(
-                    rotationX = -180F * f,
-                    transformOrigin = TransformOrigin(pivotFractionX = 0.5F, pivotFractionY = 0.5F)
-                )
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .graphicsLayer(
+                        rotationX = -180F * f,
+                        transformOrigin = TransformOrigin(
+                            pivotFractionX = 0.5F,
+                            pivotFractionY = 0.5F
+                        )
+                    )
             ) {
 
                 TimerItemView(
@@ -87,6 +97,7 @@ fun TimerItemAnimation(currentText: String, nextText: String, factor: Float) {
         }
     }
 }
+
 private val FLAP_WIDTH = 96.dp
 private val FLAP_HEIGHT = 72.dp
 
@@ -101,7 +112,7 @@ fun TimerItemView(
         elevation = elevation
     ) {
         Box(
-            modifier = Modifier.background( MyTheme.colors.timeBackground),
+            modifier = Modifier.background(MyTheme.colors.timeBackground),
             contentAlignment = Alignment.Center
         ) {
             Text(
