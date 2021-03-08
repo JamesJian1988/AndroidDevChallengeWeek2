@@ -3,14 +3,11 @@ package com.example.androiddevchallenge.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontFamily
@@ -22,7 +19,6 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 
 @Composable
 fun TimerItem(
-    title: String,
     currentValue: Int,
     nextValue: Int,
     factor: Float,
@@ -86,9 +82,6 @@ fun TimerItemAnimation(currentText: String, nextText: String, factor: Float) {
 }
 private val FLAP_WIDTH = 96.dp
 private val FLAP_HEIGHT = 72.dp
-
-private val TOP_FLAP_SHAPE = RoundedCornerShape(4.dp, 4.dp, 0.dp, 0.dp)
-private val BOTTOM_FLAP_SHAPE = RoundedCornerShape(0.dp, 0.dp, 4.dp, 4.dp)
 
 @Composable
 fun TimerItemView(
