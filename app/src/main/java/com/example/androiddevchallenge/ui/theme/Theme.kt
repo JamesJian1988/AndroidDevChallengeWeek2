@@ -15,45 +15,77 @@
  */
 package com.example.androiddevchallenge.ui.theme
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
-private val DarkColorPalette = darkColors(
-    primary = purple200,
-    primaryVariant = purple700,
-    secondary = teal200
+@Stable
+class MyColors(
+    mainBackground: Color,
+    timeBackground: Color,
+    timeText: Color,
+) {
+    var mainBackground: Color by mutableStateOf(mainBackground)
+        private set
+    var timeBackground: Color by mutableStateOf(timeBackground)
+        private set
+    var timeText: Color by mutableStateOf(timeText)
+        private set
+}
+private val LocalMyColors = compositionLocalOf {
+    LightColorPalette
+}
+
+@Stable
+object MyTheme {
+    val colors: MyColors
+        @Composable
+        get() = LocalMyColors.current
+}
+
+private val DarkColorPalette = MyColors(
+    mainBackground = main_dark,
+    timeBackground = BACKGROUND_COLOR_DARK,
+    timeText = TEXT_COLOR_DARK
 )
 
-private val LightColorPalette = lightColors(
-    primary = purple500,
-    primaryVariant = purple700,
-    secondary = teal200
+private val LightColorPalette = MyColors(
+    mainBackground = main_dark,
+    timeBackground = BACKGROUND_COLOR_DARK,
+    timeText = TEXT_COLOR_DARK
 
-        /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
 )
 
 @Composable
 fun MyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
-    val colors = if (darkTheme) {
+    val targetColors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = typography,
-        shapes = shapes,
-        content = content
+    val mainBackground = animateColorAsState(targetColors.mainBackground, TweenSpec(600))
+    val timeBackground = animateColorAsState(targetColors.timeBackground, TweenSpec(600))
+    val timeText = animateColorAsState(targetColors.timeText, TweenSpec(600))
+
+    val colors = MyColors(
+        mainBackground = mainBackground.value,
+        timeBackground = timeBackground.value,
+        timeText = timeText.value,
     )
+
+    CompositionLocalProvider(LocalMyColors provides colors) {
+        MaterialTheme(
+            shapes = shapes
+        ) {
+            ProvideWindowInsets(content = content)
+        }
+    }
 }

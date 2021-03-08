@@ -13,14 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.util
 
-import androidx.compose.ui.graphics.Color
+fun getTimeParts(seconds: Int): TimeParts {
+    val partHours = seconds / 60 / 60
+    val partMinutes = (seconds - partHours * 60 * 60) / 60
+    val partSeconds = seconds - partHours * 60 * 60 - partMinutes * 60
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
-val teal200 = Color(0xFF03DAC5)
-val BACKGROUND_COLOR_DARK = Color(0xFF3a595c)
-val TEXT_COLOR_DARK = Color(0xFFbddad8)
-val main_dark = Color(0xFF303030)
+    return TimeParts(
+        hours = partHours,
+        minutes = partMinutes,
+        seconds = partSeconds
+    )
+}
+
+class TimeParts(
+    val hours: Int,
+    val minutes: Int,
+    val seconds: Int
+)
