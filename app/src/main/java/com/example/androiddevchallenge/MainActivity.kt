@@ -32,6 +32,13 @@ fun MyApp() {
     }
 }
 
+@Preview("Light Theme", widthDp = 360, heightDp = 640)
+@Composable
+fun LightPreview() {
+    MyTheme(darkTheme = false) {
+        MyApp()
+    }
+}
 
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
